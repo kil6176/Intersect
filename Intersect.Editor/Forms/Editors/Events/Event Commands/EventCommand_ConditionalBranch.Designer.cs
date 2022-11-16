@@ -1493,7 +1493,7 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.nudItemAmount.ForeColor = System.Drawing.Color.Gainsboro;
             this.nudItemAmount.Location = new System.Drawing.Point(104, 18);
             this.nudItemAmount.Maximum = new decimal(new int[] {
-            100000,
+            1000000000,
             0,
             0,
             0});

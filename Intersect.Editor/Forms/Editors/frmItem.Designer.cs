@@ -483,7 +483,7 @@ namespace Intersect.Editor.Forms.Editors
             this.nudPrice.ForeColor = System.Drawing.Color.Gainsboro;
             this.nudPrice.Location = new System.Drawing.Point(262, 81);
             this.nudPrice.Maximum = new decimal(new int[] {
-            1000000,
+            2000000000,
             0,
             0,
             0});
@@ -1748,7 +1748,7 @@ namespace Intersect.Editor.Forms.Editors
             this.nudDamage.ForeColor = System.Drawing.Color.Gainsboro;
             this.nudDamage.Location = new System.Drawing.Point(15, 36);
             this.nudDamage.Maximum = new decimal(new int[] {
-            10000,
+            1000000000,
             0,
             0,
             0});

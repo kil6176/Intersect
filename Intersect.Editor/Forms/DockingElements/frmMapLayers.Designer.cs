@@ -452,7 +452,7 @@ namespace Intersect.Editor.Forms.DockingElements
             this.nudItemQuantity.ForeColor = System.Drawing.Color.Gainsboro;
             this.nudItemQuantity.Location = new System.Drawing.Point(16, 72);
             this.nudItemQuantity.Maximum = new decimal(new int[] {
-            1000000,
+            1000000000,
             0,
             0,
             0});

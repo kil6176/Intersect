@@ -74,7 +74,7 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.nudGiveTakeAmount.ForeColor = System.Drawing.Color.Gainsboro;
             this.nudGiveTakeAmount.Location = new System.Drawing.Point(64, 73);
             this.nudGiveTakeAmount.Maximum = new decimal(new int[] {
-            100000,
+            1000000000,
             0,
             0,
             0});
