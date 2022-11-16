@@ -209,7 +209,6 @@ namespace Intersect.Client.Interface.Shared
 
                 label.SetBounds(8, 8 + offset, 0, 24);
                 label.SetTextColor(new Color(255, 255, 255, 255), Label.ControlState.Normal);
-                Console.WriteLine(label);
                 var key1 = new Button(mControlsContainer, $"Control{Enum.GetName(typeof(Control), control)}Button1")
                 {
                     Text = "",
@@ -219,7 +218,6 @@ namespace Intersect.Client.Interface.Shared
                 };
 
                 key1.Clicked += Key1_Clicked;
-                Console.WriteLine(key1);
 
                 var key2 = new Button(mControlsContainer, $"Control{Enum.GetName(typeof(Control), control)}Button2")
                 {
@@ -229,7 +227,6 @@ namespace Intersect.Client.Interface.Shared
                     Font = defaultFont
                 };
 
-                Console.WriteLine(key2);
                 key2.Clicked += Key2_Clicked;
 
                 mKeyButtons.Add(control, new[] {key1, key2});

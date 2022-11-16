@@ -127,7 +127,7 @@ namespace Intersect.Client.Core
                                         break;
 
                                     case Control.PickUp:
-                                        Globals.Me?.TryPickupItem();
+                                        Globals.Me.pickUpToggle = !Globals.Me.pickUpToggle;
 
                                         break;
 

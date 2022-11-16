@@ -20,6 +20,7 @@ using Intersect.Network.Packets.Server;
 using Newtonsoft.Json;
 using Intersect.Client.Framework.GenericClasses;
 using Intersect.Utilities;
+using System.Threading.Tasks;
 
 namespace Intersect.Client.Entities
 {
@@ -60,6 +61,14 @@ namespace Intersect.Client.Entities
         public Guid TargetIndex;
 
         public int TargetType;
+
+        public bool pickUpToggle = false;
+
+        public bool pickUpDelayChk = false;
+
+        DateTime ThisMoment;
+        DateTime AfterWards;
+
 
         public Player(Guid id, PlayerEntityPacket packet) : base(id, packet)
         {
@@ -132,9 +141,23 @@ namespace Intersect.Client.Entities
                      !Interface.Interface.HasInputFocus());
         }
 
+        private void pickUpDelayCheck(int MS)
+        {
+            DateTime ThisMoment2 = DateTime.Now;
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, MS);
+            AfterWards = ThisMoment.Add(duration);
+
+            if (ThisMoment2 >= AfterWards)
+            {
+                System.Windows.Forms.Application.DoEvents();
+                ThisMoment = DateTime.Now;
+                TryPickupItem();
+            }
+
+            return;
+        }
         public override bool Update()
         {
-
             if (Globals.Me == this)
             {
                 HandleInput();
@@ -158,9 +181,9 @@ namespace Intersect.Client.Entities
                         }
                     }
                 }
-                if (Controls.KeyDown(Control.PickUp))
+                if(pickUpToggle)
                 {
-                    Globals.Me?.TryPickupItem();
+                    pickUpDelayCheck(100);
                 }
             }
 
@@ -1240,6 +1263,7 @@ namespace Intersect.Client.Entities
                 mItemTargetBox = null;
             }
         }
+
 
         public bool TryPickupItem()
         {
