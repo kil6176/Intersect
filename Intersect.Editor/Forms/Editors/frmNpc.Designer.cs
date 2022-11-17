@@ -1317,7 +1317,8 @@ namespace Intersect.Editor.Forms.Editors
             this.cmbMovement.Items.AddRange(new object[] {
             "Move Randomly",
             "Turn Randomly",
-            "No Movement"});
+            "No Movement",
+            "Player Attendant"});
             this.cmbMovement.Location = new System.Drawing.Point(90, 70);
             this.cmbMovement.Name = "cmbMovement";
             this.cmbMovement.Size = new System.Drawing.Size(121, 21);

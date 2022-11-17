@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 using Intersect.Enums;
@@ -91,6 +92,8 @@ namespace Intersect.Server.Entities
         /// The Z value on which this NPC was "aggro'd" and started chasing a target.
         /// </summary>
         public int AggroCenterZ;
+
+        public String SummonerName = "";
 
         public Npc([NotNull] NpcBase myBase, bool despawnable = false) : base()
         {
@@ -649,7 +652,6 @@ namespace Intersect.Server.Entities
         {
             var curMapLink = MapId;
             base.Update(timeMs);
-
             var statuses = Statuses.Values.ToArray();
             foreach (var status in statuses)
             {
@@ -681,16 +683,22 @@ namespace Intersect.Server.Entities
                 var targetX = 0;
                 var targetY = 0;
                 var targetZ = 0;
+                var targetName = "";
 
                 //Check if there is a target, if so, run their ass down.
                 if (Target != null)
                 {
-                    if (!Target.IsDead() && CanAttack(Target, null))
+                    int dist = GetDistanceTo(Target);
+                    if (!Target.IsDead() && 
+                        (CanAttack(Target, null) || 
+                        (Base.Movement == (int)NpcMovement.PlayerAttendant) && 
+                        dist > Range))
                     {
                         targetMap = Target.MapId;
                         targetX = Target.X;
                         targetY = Target.Y;
                         targetZ = Target.Z;
+                        targetName = Target.Name;
                         var targetStatuses = Target.Statuses.Values.ToArray();
                         foreach (var targetStatus in targetStatuses)
                         {
@@ -700,7 +708,16 @@ namespace Intersect.Server.Entities
                                 targetX = 0;
                                 targetY = 0;
                                 targetZ = 0;
+                                targetName = "";
                             }
+                        }
+                    }
+                    //시야안에 들어오면 타겟삭제
+                    else if (dist < Range && Base.Movement == (int) NpcMovement.PlayerAttendant)
+                    {
+                        if (CastTime <= 0)
+                        {
+                            RemoveTarget();
                         }
                     }
                     else
@@ -975,7 +992,12 @@ namespace Intersect.Server.Entities
 
                     return;
                 }
-
+                else if(Base.Movement == (int) NpcMovement.PlayerAttendant)
+                {
+                    LastRandomMove = Globals.Timing.Milliseconds + Randomization.Next(1000, 3000);
+                    return;
+                }
+                
                 var i = Randomization.Next(0, 1);
                 if (i == 0)
                 {
@@ -1037,7 +1059,7 @@ namespace Intersect.Server.Entities
                         RestoreVital((Vitals)v);
                     }
                 }
-
+                
                 // Try and move back to where we came from before we started chasing something.
                 mPathFinder.SetTarget(new PathfinderTarget(AggroCenterMap.Id, AggroCenterX, AggroCenterY, AggroCenterZ));
             }
@@ -1149,15 +1171,23 @@ namespace Intersect.Server.Entities
                         //TODO Check if NPC is allowed to attack player with new conditions
                         if (entity.GetType() == typeof(Player))
                         {
+                            var dist = GetDistanceTo(entity);
                             if (ShouldAttackPlayerOnSight((Player) entity))
                             {
-                                var dist = GetDistanceTo(entity);
                                 if (dist <= Range && dist < closestRange)
                                 {
                                     possibleTargets.Add(entity);
                                     closestIndex = possibleTargets.Count - 1;
                                     closestRange = dist;
                                 }
+
+                            }
+                            //시야보다 떨어지면 따라가기
+                            else if (dist > Range && Base.Movement == (int)NpcMovement.PlayerAttendant && entity.Name == Summoner)
+                            {
+                                possibleTargets.Add(entity);
+                                closestIndex = possibleTargets.Count - 1;
+                                closestRange = dist;
                             }
                         }
                         else if (entity.GetType() == typeof(Npc))
@@ -1307,8 +1337,22 @@ namespace Intersect.Server.Entities
 
             var pkt = (NpcEntityPacket) packet;
             pkt.Aggression = GetAggression(forPlayer);
+            /*
+            LogStackTrace();
 
+            pkt.Summoner = forPlayer.Name;
+
+            Console.WriteLine(Name);
+            Console.WriteLine(forPlayer.Name);
+            SummonerName = forPlayer.Name;
+            */
             return pkt;
+
+        }
+
+        public void LogStackTrace()
+        {
+            Console.WriteLine(Environment.StackTrace);
         }
 
     }

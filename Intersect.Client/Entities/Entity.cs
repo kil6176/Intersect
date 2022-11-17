@@ -178,6 +178,8 @@ namespace Intersect.Client.Entities
 
         public byte Z;
 
+        public string Summoner;
+
         public Entity(Guid id, EntityPacket packet, bool isEvent = false)
         {
             Id = id;

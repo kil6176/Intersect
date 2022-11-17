@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-
+using System.Text;
 using Intersect.Enums;
 using Intersect.GameObjects;
 using Intersect.GameObjects.Events;
@@ -67,6 +67,10 @@ namespace Intersect.Server.Entities
         public int Y { get; set; }
 
         public int Z { get; set; }
+
+
+        [NotMapped]
+        public String Summoner { get; set; }
 
         public int Dir { get; set; }
 
@@ -2487,7 +2491,6 @@ namespace Intersect.Server.Entities
             {
                 packet = new EntityPacket();
             }
-
             packet.EntityId = Id;
             packet.MapId = MapId;
             packet.Name = Name;
@@ -2496,7 +2499,7 @@ namespace Intersect.Server.Entities
             packet.Level = Level;
             packet.X = (byte) X;
             packet.Y = (byte) Y;
-            packet.Z = (byte) Z;
+            packet.Z = (byte)Z;
             packet.Dir = (byte) Dir;
             packet.Passable = Passable;
             packet.HideName = HideName;

@@ -386,6 +386,8 @@ namespace Intersect.Server.Migrations
 
                     b.Property<int>("Z");
 
+                    b.Property<String>("Summoner");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");

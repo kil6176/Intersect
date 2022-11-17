@@ -5,6 +5,7 @@
     {
 
         public int Aggression { get; set; }
+        public string Summoner { get; set; }
 
     }
 

@@ -694,6 +694,7 @@ namespace Intersect.Server.Entities.Events
             var tileY = 0;
             var direction = (byte) Directions.Up;
             var targetEntity = (Entity) player;
+            var summoner = targetEntity.Name;
             if (mapId != Guid.Empty)
             {
                 tileX = command.X;
@@ -764,7 +765,7 @@ namespace Intersect.Server.Entities.Events
             var tile = new TileHelper(mapId, tileX, tileY);
             if (tile.TryFix())
             {
-                var npc = MapInstance.Get(mapId).SpawnNpc((byte) tileX, (byte) tileY, direction, npcId, true);
+                var npc = MapInstance.Get(mapId).SpawnNpc((byte) tileX, (byte) tileY, direction, npcId, true, summoner);
                 player.SpawnedNpcs.Add((Npc) npc);
             }
         }

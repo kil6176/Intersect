@@ -82,6 +82,7 @@ namespace Intersect.Server.Entities.Pathfinding
                         var sourceX = Options.MapWidth + mEntity.X;
                         var sourceY = Options.MapHeight + mEntity.Y;
 
+
                         //Loop through surrouding maps to see if our target is even around.
                         for (var x = gridX - 1; x <= gridX + 1; x++)
                         {

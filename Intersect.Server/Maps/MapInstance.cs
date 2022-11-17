@@ -578,7 +578,7 @@ namespace Intersect.Server.Maps
             }
         }
 
-        public Entity SpawnNpc(byte tileX, byte tileY, byte dir, Guid npcId, bool despawnable = false)
+        public Entity SpawnNpc(byte tileX, byte tileY, byte dir, Guid npcId, bool despawnable = false, string summoner = "")
         {
             var npcBase = NpcBase.Get(npcId);
             if (npcBase != null)
@@ -588,7 +588,8 @@ namespace Intersect.Server.Maps
                     MapId = Id,
                     X = tileX,
                     Y = tileY,
-                    Dir = dir
+                    Dir = dir,
+                    Summoner = summoner
                 };
 
                 AddEntity(npc);
@@ -768,6 +769,11 @@ namespace Intersect.Server.Maps
                     npc.RemoveTarget();
                 }
             }
+        }
+
+        internal object SpawnNpc(byte tileX, byte tileY, byte direction, Guid npcId, bool v, object summoner)
+        {
+            throw new NotImplementedException();
         }
 
         //Update + Related Functions
