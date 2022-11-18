@@ -53,7 +53,7 @@ namespace Intersect.Server.Entities.Pathfinding
             return mTarget;
         }
 
-        public PathfinderResult Update(long timeMs)
+        public PathfinderResult Update(long timeMs, bool npcPlayerAttend = false)
         {
             //TODO: Pull this out into server config :) 
             var pathfindingRange = Math.Max(
@@ -176,8 +176,9 @@ namespace Intersect.Server.Entities.Pathfinding
                                                 {
                                                     //Copy the cached array of tile blocks
                                                     var blocks = tmpMap.GetCachedBlocks(
-                                                        mEntity.GetType() == typeof(Player)
+                                                        mEntity.GetType() == typeof(Player) || npcPlayerAttend
                                                     );
+                                                    
 
                                                     foreach (var block in blocks)
                                                     {

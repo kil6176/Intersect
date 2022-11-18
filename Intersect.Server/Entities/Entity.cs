@@ -455,6 +455,201 @@ namespace Intersect.Server.Entities
             return IsTileWalkable(tile.GetMap(), tile.GetX(), tile.GetY(), Z);
         }
 
+
+
+        public virtual int CanMove(int moveDir, NpcBase npcbase)
+        {
+            var xOffset = 0;
+            var yOffset = 0;
+
+            //if (MoveTimer > Globals.System.GetTimeMs()) return -5;
+            var tile = new TileHelper(MapId, X, Y);
+            switch (moveDir)
+            {
+                case 0: //Up
+                    yOffset--;
+
+                    break;
+                case 1: //Down
+                    yOffset++;
+
+                    break;
+                case 2: //Left
+                    xOffset--;
+
+                    break;
+                case 3: //Right
+                    xOffset++;
+
+                    break;
+                case 4: //NW
+                    yOffset--;
+                    xOffset--;
+
+                    break;
+                case 5: //NE
+                    yOffset--;
+                    xOffset++;
+
+                    break;
+                case 6: //SW
+                    yOffset++;
+                    xOffset--;
+
+                    break;
+                case 7: //SE
+                    yOffset++;
+                    xOffset++;
+
+                    break;
+            }
+
+            if (tile.Translate(xOffset, yOffset))
+            {
+                var tileAttribute = MapInstance.Get(tile.GetMapId()).Attributes[tile.GetX(), tile.GetY()];
+                if (tileAttribute != null)
+                {
+                    if (tileAttribute.Type == MapAttributes.Blocked)
+                    {
+                        return -2;
+                    }
+
+                    if (tileAttribute.Type == MapAttributes.NpcAvoid && this is Npc && npcbase.Movement != (int)NpcMovement.PlayerAttendant)
+                    {
+                        return -2;
+                    }
+
+                    if (tileAttribute.Type == MapAttributes.ZDimension &&
+                        ((MapZDimensionAttribute)tileAttribute).BlockedLevel > 0 &&
+                        ((MapZDimensionAttribute)tileAttribute).BlockedLevel - 1 == Z)
+                    {
+                        return -3;
+                    }
+
+                    if (tileAttribute.Type == MapAttributes.Slide)
+                    {
+                        if (this is EventPage)
+                        {
+                            return -4;
+                        }
+
+                        switch (((MapSlideAttribute)tileAttribute).Direction)
+                        {
+                            case 1:
+                                if (moveDir == 1)
+                                {
+                                    return -4;
+                                }
+
+                                break;
+                            case 2:
+                                if (moveDir == 0)
+                                {
+                                    return -4;
+                                }
+
+                                break;
+                            case 3:
+                                if (moveDir == 3)
+                                {
+                                    return -4;
+                                }
+
+                                break;
+                            case 4:
+                                if (moveDir == 2)
+                                {
+                                    return -4;
+                                }
+
+                                break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return -5; //Out of Bounds
+            }
+
+            if (!Passable)
+            {
+                var targetMap = MapInstance.Get(tile.GetMapId());
+                var mapEntities = MapInstance.Get(tile.GetMapId()).GetEntities();
+                for (var i = 0; i < mapEntities.Count; i++)
+                {
+                    var en = mapEntities[i];
+                    if (en != null && en.X == tile.GetX() && en.Y == tile.GetY() && en.Z == Z && !en.Passable)
+                    {
+                        //Set a target if a projectile
+                        CollisionIndex = en.Id;
+                        if (en is Player)
+                        {
+                            if (this is Player)
+                            {
+                                //Check if this target player is passable....
+                                if (!Options.Instance.Passability.Passable[(int)targetMap.ZoneType])
+                                {
+                                    return (int)EntityTypes.Player;
+                                }
+                            }
+                            else
+                            {
+                                return (int)EntityTypes.Player;
+                            }
+                        }
+                        else if (en is Npc)
+                        {
+                            return (int)EntityTypes.Player;
+                        }
+                        else if (en is Resource resource)
+                        {
+                            //If determine if we should walk
+                            if (!resource.IsPassable())
+                            {
+                                return (int)EntityTypes.Resource;
+                            }
+                        }
+                    }
+                }
+
+                //If this is an npc or other event.. if any global page exists that isn't passable then don't walk here!
+                if (!(this is Player))
+                {
+                    foreach (var evt in MapInstance.Get(tile.GetMapId()).GlobalEventInstances)
+                    {
+                        foreach (var en in evt.Value.GlobalPageInstance)
+                        {
+                            if (en != null && en.X == tile.GetX() && en.Y == tile.GetY() && en.Z == Z && !en.Passable)
+                            {
+                                return (int)EntityTypes.Event;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return IsTileWalkable(tile.GetMap(), tile.GetX(), tile.GetY(), Z);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         protected virtual int IsTileWalkable(MapInstance map, int x, int y, int z)
         {
             //Out of bounds if no map
@@ -2555,6 +2750,10 @@ namespace Intersect.Server.Entities
 
         #endregion
 
+        public void LogStackTrace()
+        {
+            Console.WriteLine(Environment.StackTrace);
+        }
     }
 
 }

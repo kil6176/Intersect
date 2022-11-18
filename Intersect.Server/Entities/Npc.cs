@@ -691,7 +691,7 @@ namespace Intersect.Server.Entities
                     int dist = GetDistanceTo(Target);
                     if (!Target.IsDead() && 
                         (CanAttack(Target, null) || 
-                        (Base.Movement == (int)NpcMovement.PlayerAttendant) && 
+                        (PlayerAttendantCheck(Base)) && 
                         dist > Range))
                     {
                         targetMap = Target.MapId;
@@ -713,7 +713,7 @@ namespace Intersect.Server.Entities
                         }
                     }
                     //시야안에 들어오면 타겟삭제
-                    else if (dist < Range && Base.Movement == (int) NpcMovement.PlayerAttendant)
+                    else if (dist < Range && PlayerAttendantCheck(Base))
                     {
                         if (CastTime <= 0)
                         {
@@ -801,12 +801,14 @@ namespace Intersect.Server.Entities
                 if (mPathFinder.GetTarget() != null)
                 {
                     TryCastSpells();
+
                     if (!IsOneBlockAway(
                         mPathFinder.GetTarget().TargetMapId, mPathFinder.GetTarget().TargetX,
                         mPathFinder.GetTarget().TargetY, mPathFinder.GetTarget().TargetZ
                     ))
                     {
-                        switch (mPathFinder.Update(timeMs))
+                        
+                        switch (mPathFinder.Update(timeMs, PlayerAttendantCheck(Base)))
                         {
                             case PathfinderResult.Success:
                                 var dir = mPathFinder.GetMove();
@@ -835,7 +837,7 @@ namespace Intersect.Server.Entities
                                         }
                                     }
 
-                                    if (CanMove(dir) == -1 || CanMove(dir) == -4)
+                                    if (CanMove(dir, Base) == -1 || CanMove(dir, Base) == -4)
                                     {
                                         //check if NPC is snared or stunned
                                         statuses = Statuses.Values.ToArray();
@@ -920,7 +922,7 @@ namespace Intersect.Server.Entities
                                     break;
                             }
 
-                            if (CanMove(dir) == -1 || CanMove(dir) == -4)
+                            if (CanMove(dir, Base) == -1 || CanMove(dir, Base) == -4)
                             {
                                 //check if NPC is snared or stunned
                                 statuses = Statuses.Values.ToArray();
@@ -992,9 +994,8 @@ namespace Intersect.Server.Entities
 
                     return;
                 }
-                else if(Base.Movement == (int) NpcMovement.PlayerAttendant)
+                else if(PlayerAttendantCheck(Base))
                 {
-                    LastRandomMove = Globals.Timing.Milliseconds + Randomization.Next(1000, 3000);
                     return;
                 }
                 
@@ -1002,7 +1003,7 @@ namespace Intersect.Server.Entities
                 if (i == 0)
                 {
                     i = Randomization.Next(0, 4);
-                    if (CanMove(i) == -1)
+                    if (CanMove(i, Base) == -1)
                     {
                         //check if NPC is snared or stunned
                         statuses = Statuses.Values.ToArray();
@@ -1183,7 +1184,7 @@ namespace Intersect.Server.Entities
 
                             }
                             //시야보다 떨어지면 따라가기
-                            else if (dist > Range && Base.Movement == (int)NpcMovement.PlayerAttendant && entity.Name == Summoner)
+                            else if (dist > Range && PlayerAttendantCheck(Base) && entity.Name == Summoner)
                             {
                                 possibleTargets.Add(entity);
                                 closestIndex = possibleTargets.Count - 1;
@@ -1353,6 +1354,15 @@ namespace Intersect.Server.Entities
         public void LogStackTrace()
         {
             Console.WriteLine(Environment.StackTrace);
+        }
+
+        public bool PlayerAttendantCheck(NpcBase npcBase)
+        {
+            if (npcBase.Movement == (int)NpcMovement.PlayerAttendant)
+                return true;
+            else
+                return false;
+            
         }
 
     }
