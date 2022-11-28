@@ -6,7 +6,7 @@ namespace Intersect.Network.Packets.Server
     public class InventoryUpdatePacket : CerasPacket
     {
 
-        public InventoryUpdatePacket(int slot, Guid id, int quantity, Guid? bagId, int[] statBuffs)
+        public InventoryUpdatePacket(int slot, Guid id, long quantity, Guid? bagId, int[] statBuffs)
         {
             Slot = slot;
             ItemId = id;
@@ -21,7 +21,7 @@ namespace Intersect.Network.Packets.Server
 
         public Guid? BagId { get; set; }
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         public int[] StatBuffs { get; set; }
 

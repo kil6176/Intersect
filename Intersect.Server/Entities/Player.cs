@@ -821,7 +821,7 @@ namespace Intersect.Server.Entities
 
         public void GiveExperience(long amount)
         {
-            Exp += (int) (amount * GetExpMultiplier() / 100);
+            Exp += (amount * GetExpMultiplier() / 100);
             if (Exp < 0)
             {
                 Exp = 0;
@@ -1365,7 +1365,7 @@ namespace Intersect.Server.Entities
         /// <param name="itemId">The item Id to check if the player can receive.</param>
         /// <param name="quantity">The amount of this item to check if the player can receive.</param>
         /// <returns></returns>
-        public bool CanGiveItem(Guid itemId, int quantity) => CanGiveItem(new Item(itemId, quantity));
+        public bool CanGiveItem(Guid itemId, long quantity) => CanGiveItem(new Item(itemId, quantity));
 
         //Inventory
         /// <summary>
@@ -1412,7 +1412,7 @@ namespace Intersect.Server.Entities
         /// <param name="itemId">The ItemId to see if it can be taken away from the player.</param>
         /// <param name="quantity">The quantity of above item to see if we can take away from the player.</param>
         /// <returns>Whether or not the item can be taken away from the player in the requested quantity.</returns>
-        public bool CanTakeItem(Guid itemId, int quantity) => FindInventoryItemQuantity(itemId) >= quantity;
+        public bool CanTakeItem(Guid itemId, long quantity) => FindInventoryItemQuantity(itemId) >= quantity;
 
         /// <summary>
         /// Checks whether or not a player has enough items in their inventory to be taken.
@@ -1480,7 +1480,7 @@ namespace Intersect.Server.Entities
         /// <param name="itemId">The Id for the item to be handed out to the player.</param>
         /// <param name="quantity">The quantity of items to be handed out to the player.</param>
         /// <returns>Whether the player received the item or not.</returns>
-        public bool TryGiveItem(Guid itemId, int quantity) => TryGiveItem(new Item(itemId, quantity), ItemHandling.Normal, false, true);
+        public bool TryGiveItem(Guid itemId, long quantity) => TryGiveItem(new Item(itemId, quantity), ItemHandling.Normal, false, true);
 
         /// <summary>
         /// Attempts to give the player an item. Returns whether or not it succeeds.
@@ -1489,7 +1489,7 @@ namespace Intersect.Server.Entities
         /// <param name="quantity">The quantity of items to be handed out to the player.</param>
         /// <param name="handler">The way to handle handing out this item.</param>
         /// <returns>Whether the player received the item or not.</returns>
-        public bool TryGiveItem(Guid itemId, int quantity, ItemHandling handler) => TryGiveItem(new Item(itemId, quantity), handler, false, true);
+        public bool TryGiveItem(Guid itemId, long quantity, ItemHandling handler) => TryGiveItem(new Item(itemId, quantity), handler, false, true);
 
         /// <summary>
         /// Attempts to give the player an item. Returns whether or not it succeeds.
@@ -1500,7 +1500,7 @@ namespace Intersect.Server.Entities
         /// <param name="bankOverflow">Should we allow the items to overflow into the player's bank when their inventory is full.</param>
         /// <param name="sendUpdate">Should we send an inventory update when we are done changing the player's items.</param>
         /// <returns>Whether the player received the item or not.</returns>
-        public bool TryGiveItem(Guid itemId, int quantity, ItemHandling handler, bool bankOverflow = false, bool sendUpdate = true) => TryGiveItem(new Item(itemId, quantity), handler, bankOverflow, sendUpdate);
+        public bool TryGiveItem(Guid itemId, long quantity, ItemHandling handler, bool bankOverflow = false, bool sendUpdate = true) => TryGiveItem(new Item(itemId, quantity), handler, bankOverflow, sendUpdate);
 
         /// <summary>
         /// Attempts to give the player an item. Returns whether or not it succeeds.
@@ -1521,7 +1521,7 @@ namespace Intersect.Server.Entities
             // Get this information so we can use it later.
             var openSlots = FindOpenInventorySlots().Count;
             var hasItem = FindInventoryItemSlot(item.ItemId) != null;
-            int spawnAmount = 0;
+            long spawnAmount = 0;
 
             // How are we going to be handling this?
             switch (handler)
@@ -1685,7 +1685,7 @@ namespace Intersect.Server.Entities
         /// <param name="slotIndex">the slot to drop from</param>
         /// <param name="amount">the amount to drop</param>
         /// <returns>if an item was dropped</returns>
-        public bool TryDropItemFrom(int slotIndex, int amount)
+        public bool TryDropItemFrom(int slotIndex, long amount)
         {
             if (!TryGetItemAt(slotIndex, out var itemInSlot))
             {
@@ -1753,7 +1753,7 @@ namespace Intersect.Server.Entities
         /// <param name="amount">the amount to drop</param>
         /// <see cref="TryDropItemFrom(int, int)"/>
         [Obsolete("Use TryDropItemFrom(int, int).")]
-        public void DropItemFrom(int slotIndex, int amount) => TryDropItemFrom(slotIndex, amount);
+        public void DropItemFrom(int slotIndex, long amount) => TryDropItemFrom(slotIndex, amount);
 
         public void UseItem(int slot, Entity target = null)
         {
@@ -1988,7 +1988,7 @@ namespace Intersect.Server.Entities
         /// <param name="handler">The method in which we intend to handle taking away the item from our player.</param>
         /// <param name="sendUpdate">Do we need to send an inventory update after taking away the item.</param>
         /// <returns></returns>
-        public bool TryTakeItem(InventorySlot slot, int amount, ItemHandling handler = ItemHandling.Normal, bool sendUpdate = true)
+        public bool TryTakeItem(InventorySlot slot, long amount, ItemHandling handler = ItemHandling.Normal, bool sendUpdate = true)
         {
             if (Items == null || slot == Item.None || slot == null)
             {
@@ -1996,7 +1996,7 @@ namespace Intersect.Server.Entities
             }
 
             // Figure out how many we can take!
-            var toTake = 0;
+            long toTake = 0;
             switch (handler)
             {
                 case ItemHandling.Normal:
@@ -2064,7 +2064,7 @@ namespace Intersect.Server.Entities
         /// <param name="handler">The method in which we intend to handle taking away the item from our player.</param>
         /// <param name="sendUpdate">Do we need to send an inventory update after taking away the item.</param>
         /// <returns>Whether the item was taken away successfully or not.</returns>
-        public bool TryTakeItem(Guid itemId, int amount, ItemHandling handler = ItemHandling.Normal, bool sendUpdate = true)
+        public bool TryTakeItem(Guid itemId, long amount, ItemHandling handler = ItemHandling.Normal, bool sendUpdate = true)
         {
             if (Items == null)
             {
@@ -2072,7 +2072,7 @@ namespace Intersect.Server.Entities
             }
 
             // Figure out how many we can take!
-            var toTake = 0;
+            long toTake = 0;
             switch (handler)
             {
                 case ItemHandling.Normal:
@@ -2149,7 +2149,7 @@ namespace Intersect.Server.Entities
         /// <param name="slot"></param>
         /// <param name="amount"></param>
         /// <param name="sendUpdate"></param>
-        private void TakeItem(InventorySlot slot, int amount, bool sendUpdate = true)
+        private void TakeItem(InventorySlot slot, long amount, bool sendUpdate = true)
         {
             if (slot.Quantity > amount) // This slot contains more than what we're trying to take away here. Update the quantity.
             {
@@ -2172,14 +2172,14 @@ namespace Intersect.Server.Entities
         /// </summary>
         /// <param name="itemId">The item Id to look for.</param>
         /// <returns>The amount of the requested item the player has on them.</returns>
-        public int FindInventoryItemQuantity(Guid itemId)
+        public long FindInventoryItemQuantity(Guid itemId)
         {
             if (Items == null)
             {
                 return 0;
             }
 
-            var itemCount = 0;
+            long itemCount = 0;
             for (var i = 0; i < Options.MaxInvItems; i++)
             {
                 var item = Items[i];
@@ -2198,7 +2198,7 @@ namespace Intersect.Server.Entities
         /// <param name="itemId">The item Id to look for.</param>
         /// <param name="quantity">The quantity of the item to look for.</param>
         /// <returns>An <see cref="InventorySlot"/> that contains the item, or null if none are found.</returns>
-        public InventorySlot FindInventoryItemSlot(Guid itemId, int quantity = 1) => FindInventoryItemSlots(itemId, quantity).FirstOrDefault();
+        public InventorySlot FindInventoryItemSlot(Guid itemId, long quantity = 1) => FindInventoryItemSlots(itemId, quantity).FirstOrDefault();
 
         /// <summary>
         /// Finds all inventory slots matching the desired item and quantity.
@@ -2206,7 +2206,7 @@ namespace Intersect.Server.Entities
         /// <param name="itemId">The item Id to look for.</param>
         /// <param name="quantity">The quantity of the item to look for.</param>
         /// <returns>A list of <see cref="InventorySlot"/> containing the requested item.</returns>
-        public List<InventorySlot> FindInventoryItemSlots(Guid itemId, int quantity = 1)
+        public List<InventorySlot> FindInventoryItemSlots(Guid itemId, long quantity = 1)
         {
             var slots = new List<InventorySlot>();
             if (Items == null)
@@ -2231,7 +2231,7 @@ namespace Intersect.Server.Entities
             return slots;
         }
 
-        public int CountItems(Guid itemId, bool inInventory = true, bool inBank = false)
+        public long CountItems(Guid itemId, bool inInventory = true, bool inBank = false)
         {
             if (inInventory == false && inBank == false)
             {
@@ -2240,9 +2240,9 @@ namespace Intersect.Server.Entities
                 );
             }
 
-            var count = 0;
+            long count = 0;
 
-            int QuantityFromSlot(Item item)
+            long QuantityFromSlot(Item item)
             {
                 return item?.ItemId == itemId ? Math.Max(1, item.Quantity) : 0;
             }
@@ -2377,7 +2377,7 @@ namespace Intersect.Server.Entities
             return luck;
         }
 
-        public int GetExpMultiplier()
+        public long GetExpMultiplier()
         {
             var exp = 100;
 
@@ -2447,11 +2447,11 @@ namespace Intersect.Server.Entities
             }
         }
 
-        public void SellItem(int slot, int amount)
+        public void SellItem(int slot, long amount)
         {
             var canSellItem = true;
             var rewardItemId = Guid.Empty;
-            var rewardItemVal = 0;
+            long rewardItemVal = 0;
 
             TryGetSlot(slot, out var itemInSlot, true);
             var sellItemNum = itemInSlot.ItemId;
@@ -2547,11 +2547,11 @@ namespace Intersect.Server.Entities
             }
         }
 
-        public void BuyItem(int slot, int amount)
+        public void BuyItem(int slot, long amount)
         {
             var canSellItem = true;
             var buyItemNum = Guid.Empty;
-            var buyItemAmt = 1;
+            long buyItemAmt = 1;
             var shop = InShop;
             if (shop != null)
             {
@@ -2661,7 +2661,7 @@ namespace Intersect.Server.Entities
                 }
 
                 //Quickly Look through the inventory and create a catalog of what items we have, and how many
-                var itemdict = new Dictionary<Guid, int>();
+                var itemdict = new Dictionary<Guid, long>();
                 foreach (var item in Items)
                 {
                     if (item != null)
@@ -2755,7 +2755,7 @@ namespace Intersect.Server.Entities
         {
             //See if we have lost the items needed for our current craft, if so end the crafting session
             //Quickly Look through the inventory and create a catalog of what items we have, and how many
-            var itemdict = new Dictionary<Guid, int>();
+            var itemdict = new Dictionary<Guid, long>();
             foreach (var item in Items)
             {
                 if (item != null)
@@ -2823,7 +2823,7 @@ namespace Intersect.Server.Entities
             }
         }
 
-        public bool TryDepositItem(int slot, int amount, bool sendUpdate = true)
+        public bool TryDepositItem(int slot, long amount, bool sendUpdate = true)
         {
             if (!InBank)
             {
@@ -2981,7 +2981,7 @@ namespace Intersect.Server.Entities
             return false;
         }
 
-        public void WithdrawItem(int slot, int amount)
+        public void WithdrawItem(int slot, long amount)
         {
             if (!InBank)
             {
@@ -3193,7 +3193,7 @@ namespace Intersect.Server.Entities
             }
         }
 
-        public void StoreBagItem(int slot, int amount)
+        public void StoreBagItem(int slot, long amount)
         {
             if (InBag == null || !HasBag(InBag))
             {
@@ -3299,7 +3299,7 @@ namespace Intersect.Server.Entities
             }
         }
 
-        public void RetrieveBagItem(int slot, int amount)
+        public void RetrieveBagItem(int slot, long amount)
         {
             if (InBag == null || !HasBag(InBag))
             {
@@ -3527,7 +3527,7 @@ namespace Intersect.Server.Entities
             }
         }
 
-        public void OfferItem(int slot, int amount)
+        public void OfferItem(int slot, long amount)
         {
             // TODO: Accessor cleanup
             if (Trading.Counterparty == null)
@@ -3639,7 +3639,7 @@ namespace Intersect.Server.Entities
             }
         }
 
-        public void RevokeItem(int slot, int amount)
+        public void RevokeItem(int slot, long amount)
         {
             if (Trading.Counterparty == null)
             {

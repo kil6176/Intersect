@@ -170,7 +170,7 @@ namespace Intersect.Client.Interface.Game.Crafting
             mValues.Clear();
 
             //Quickly Look through the inventory and create a catalog of what items we have, and how many
-            var itemdict = new Dictionary<Guid, int>();
+            var itemdict = new Dictionary<Guid, long>();
             foreach (var item in Globals.Me.Inventory)
             {
                 if (item != null)
@@ -197,7 +197,7 @@ namespace Intersect.Client.Interface.Game.Crafting
                 var onHand = 0;
                 if (itemdict.ContainsKey(craft.Ingredients[i].ItemId))
                 {
-                    onHand = itemdict[craft.Ingredients[i].ItemId];
+                    onHand = (int)itemdict[craft.Ingredients[i].ItemId];
                 }
 
                 lblTemp.Text = onHand + "/" + craft.Ingredients[i].Quantity;
@@ -298,7 +298,7 @@ namespace Intersect.Client.Interface.Game.Crafting
         {
             //This shouldn't be client side :(
             //Quickly Look through the inventory and create a catalog of what items we have, and how many
-            var availableItemQuantities = new Dictionary<Guid, int>();
+            var availableItemQuantities = new Dictionary<Guid, long>();
             foreach (var item in Globals.Me.Inventory)
             {
                 if (item != null)

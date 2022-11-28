@@ -4,7 +4,7 @@
     public class DropItemPacket : SlotQuantityPacket
     {
 
-        public DropItemPacket(int slot, int quantity) : base(slot, quantity)
+        public DropItemPacket(int slot, long quantity) : base(slot, quantity)
         {
         }
 

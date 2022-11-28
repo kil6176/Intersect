@@ -38,7 +38,7 @@ namespace Intersect.GameObjects.Crafting
         public Guid ItemId { get; set; }
 
         [JsonProperty(Order = -3)]
-        public int Quantity { get; set; } = 1;
+        public long Quantity { get; set; } = 1;
 
         [JsonProperty(Order = -2)]
         public int Time { get; set; }
@@ -53,9 +53,9 @@ namespace Intersect.GameObjects.Crafting
 
         public Guid ItemId;
 
-        public int Quantity = 1;
+        public long Quantity = 1;
 
-        public CraftIngredient(Guid itemId, int quantity)
+        public CraftIngredient(Guid itemId, long quantity)
         {
             ItemId = itemId;
             Quantity = quantity;

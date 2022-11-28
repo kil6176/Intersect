@@ -19,7 +19,7 @@ namespace Intersect.Client.Interface.Game
 
         public ItemDescWindow(
             [NotNull] ItemBase item,
-            int amount,
+            long amount,
             int x,
             int y,
             int[] statBuffs,

@@ -4,7 +4,7 @@
     public class RevokeTradeItemPacket : SlotQuantityPacket
     {
 
-        public RevokeTradeItemPacket(int slot, int quantity) : base(slot, quantity)
+        public RevokeTradeItemPacket(int slot, long quantity) : base(slot, quantity)
         {
         }
 

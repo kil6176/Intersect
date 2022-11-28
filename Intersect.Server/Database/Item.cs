@@ -25,13 +25,13 @@ namespace Intersect.Server.Database
         {
         }
 
-        public Item(Guid itemId, int quantity, bool incStatBuffs = true) : this(
+        public Item(Guid itemId, long quantity, bool incStatBuffs = true) : this(
             itemId, quantity, null, null, incStatBuffs
         )
         {
         }
 
-        public Item(Guid itemId, int quantity, Guid? bagId, Bag bag, bool includeStatBuffs = true)
+        public Item(Guid itemId, long quantity, Guid? bagId, Bag bag, bool includeStatBuffs = true)
         {
             ItemId = itemId;
             Quantity = quantity;
@@ -72,7 +72,7 @@ namespace Intersect.Server.Database
 
         public Guid ItemId { get; set; } = Guid.Empty;
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         [Column("StatBuffs")]
         [JsonIgnore]

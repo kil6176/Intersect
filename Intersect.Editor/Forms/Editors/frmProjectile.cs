@@ -196,7 +196,7 @@ namespace Intersect.Editor.Forms.Editors
         {
             UpdateAnimations(true);
             cmbAnimation.SelectedIndex = AnimationBase.ListIndex(mEditorItem.Animations[index].AnimationId) + 1;
-            scrlSpawnRange.Value = Math.Min(mEditorItem.Animations[index].SpawnRange, scrlSpawnRange.Maximum);
+            scrlSpawnRange.Value = (int)Math.Min(mEditorItem.Animations[index].SpawnRange, scrlSpawnRange.Maximum);
             chkRotation.Checked = mEditorItem.Animations[index].AutoRotate;
             UpdateAnimations(true);
         }
@@ -248,7 +248,7 @@ namespace Intersect.Editor.Forms.Editors
                     );
                 }
 
-                n = mEditorItem.Animations[i].SpawnRange + 1;
+                n = (int) mEditorItem.Animations[i].SpawnRange + 1;
             }
 
             lstAnimations.SelectedIndex = selectedIndex;

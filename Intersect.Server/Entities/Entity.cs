@@ -1353,7 +1353,7 @@ namespace Intersect.Server.Entities
             SetVital(vital, GetMaxVital(vital));
         }
 
-        public void AddVital(Vitals vital, int amount)
+        public void AddVital(Vitals vital, long amount)
         {
             if (vital >= Vitals.VitalCount)
             {
@@ -1363,10 +1363,10 @@ namespace Intersect.Server.Entities
             var vitalId = (int) vital;
             var maxVitalValue = GetMaxVital(vitalId);
             var safeAmount = Math.Min(amount, int.MaxValue - maxVitalValue);
-            SetVital(vital, GetVital(vital) + safeAmount);
+            SetVital(vital, GetVital(vital) + (int) safeAmount);
         }
 
-        public void SubVital(Vitals vital, int amount)
+        public void SubVital(Vitals vital, long amount)
         {
             if (vital >= Vitals.VitalCount)
             {
@@ -1386,7 +1386,7 @@ namespace Intersect.Server.Entities
             var vitalId = (int) vital;
             var maxVitalValue = GetMaxVital(vitalId);
             var safeAmount = Math.Min(amount, GetVital(vital));
-            SetVital(vital, GetVital(vital) - safeAmount);
+            SetVital(vital, GetVital(vital) - (int)safeAmount);
         }
 
         //Stats

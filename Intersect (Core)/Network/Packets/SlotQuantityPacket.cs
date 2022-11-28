@@ -8,7 +8,7 @@ namespace Intersect.Network.Packets
     public class SlotQuantityPacket : CerasPacket
     {
 
-        public SlotQuantityPacket(int slot, int quantity)
+        public SlotQuantityPacket(int slot, long quantity)
         {
             Slot = slot;
             Quantity = quantity;
@@ -16,7 +16,7 @@ namespace Intersect.Network.Packets
 
         public int Slot { get; set; }
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         public override bool IsValid => Slot >= 0 && Quantity >= 0;
 

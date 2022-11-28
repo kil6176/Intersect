@@ -1756,18 +1756,10 @@ namespace Intersect.Editor.Forms.Editors
             this.nudBaseExp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.nudBaseExp.ForeColor = System.Drawing.Color.Gainsboro;
             this.nudBaseExp.Location = new System.Drawing.Point(7, 31);
-            this.nudBaseExp.Maximum = new decimal(new int[] {
-            1000000000,
-            0,
-            0,
-            0});
-            this.nudBaseExp.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudBaseExp.Maximum = new decimal(1000000000000000);
+            this.nudBaseExp.Minimum = new decimal(0);
             this.nudBaseExp.Name = "nudBaseExp";
-            this.nudBaseExp.Size = new System.Drawing.Size(99, 20);
+            this.nudBaseExp.Size = new System.Drawing.Size(99, 25);
             this.nudBaseExp.TabIndex = 36;
             this.nudBaseExp.Value = new decimal(new int[] {
             1,

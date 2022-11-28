@@ -4,7 +4,7 @@
     public class RetrieveBagItemPacket : SlotQuantityPacket
     {
 
-        public RetrieveBagItemPacket(int slot, int quantity) : base(slot, quantity)
+        public RetrieveBagItemPacket(int slot, long quantity) : base(slot, quantity)
         {
         }
 

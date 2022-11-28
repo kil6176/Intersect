@@ -207,7 +207,7 @@ namespace Intersect.GameObjects
 
             public Guid TargetId { get; set; }
 
-            public int Quantity { get; set; }
+            public long Quantity { get; set; }
 
             public string Description { get; set; } = "";
 

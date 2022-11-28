@@ -258,7 +258,7 @@ namespace Intersect.GameObjects
         [JsonProperty]
         public Guid Id { get; set; }
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         public ItemBase Get()
         {

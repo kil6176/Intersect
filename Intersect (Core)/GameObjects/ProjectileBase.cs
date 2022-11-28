@@ -86,7 +86,7 @@ namespace Intersect.GameObjects
 
         public int Knockback { get; set; }
 
-        public int Quantity { get; set; } = 1;
+        public long Quantity { get; set; } = 1;
 
         public int Range { get; set; } = 1;
 
@@ -130,9 +130,9 @@ namespace Intersect.GameObjects
 
         public bool AutoRotate;
 
-        public int SpawnRange = 1;
+        public long SpawnRange = 1;
 
-        public ProjectileAnimation(Guid animationId, int spawnRange, bool autoRotate)
+        public ProjectileAnimation(Guid animationId, long spawnRange, bool autoRotate)
         {
             AnimationId = animationId;
             SpawnRange = spawnRange;
