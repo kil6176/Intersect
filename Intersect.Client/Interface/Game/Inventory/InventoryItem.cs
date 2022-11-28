@@ -33,7 +33,7 @@ namespace Intersect.Client.Interface.Game.Inventory
 
         private Label mCooldownLabel;
 
-        private int mCurrentAmt = 0;
+        private long mCurrentAmt = 0;
 
         private Guid mCurrentItemId;
 

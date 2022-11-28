@@ -32,7 +32,7 @@ namespace Intersect.Server.Database.PlayerData.Players
 
         public Guid TaskId { get; set; }
 
-        public int TaskProgress { get; set; }
+        public long TaskProgress { get; set; }
 
         public bool Completed { get; set; }
 

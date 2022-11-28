@@ -694,7 +694,7 @@ namespace Intersect.Editor.Forms.Editors
 
         private void nudExp_ValueChanged(object sender, EventArgs e)
         {
-            mEditorItem.Experience = (int) nudExp.Value;
+            mEditorItem.Experience = (long) nudExp.Value;
         }
 
         private void cmbDropItem_SelectedIndexChanged(object sender, EventArgs e)

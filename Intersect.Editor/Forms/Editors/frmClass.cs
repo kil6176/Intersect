@@ -1174,7 +1174,7 @@ namespace Intersect.Editor.Forms.Editors
 
         private void nudBaseExp_ValueChanged(object sender, EventArgs e)
         {
-            mEditorItem.BaseExp = (int) nudBaseExp.Value;
+            mEditorItem.BaseExp = (long) nudBaseExp.Value;
         }
 
         private void nudBaseHP_ValueChanged(object sender, EventArgs e)

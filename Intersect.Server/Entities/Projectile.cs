@@ -30,7 +30,7 @@ namespace Intersect.Server.Entities
 
         private long mSpawnTime;
 
-        private int mTotalSpawns;
+        private long mTotalSpawns;
 
         public Entity Owner;
 

@@ -270,7 +270,7 @@ namespace Intersect.Client.Entities
             PacketSender.SendDropItem((int) ((InputBox) sender).UserData, 1);
         }
 
-        public int FindItem(Guid itemId, int itemVal = 1)
+        public int FindItem(Guid itemId, long itemVal = 1)
         {
             for (var i = 0; i < Options.MaxInvItems; i++)
             {

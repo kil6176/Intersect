@@ -69,7 +69,7 @@ namespace Intersect.GameObjects
 
         public Guid CostItemId;
 
-        public int CostItemQuantity;
+        public long CostItemQuantity;
 
         public Guid ItemId;
 

@@ -123,7 +123,7 @@ namespace Intersect.Client.Networking
             Network.SendPacket(new SwapInvItemsPacket(item1, item2));
         }
 
-        public static void SendDropItem(int slot, int amount)
+        public static void SendDropItem(int slot, long amount)
         {
             Network.SendPacket(new DropItemPacket(slot, amount));
         }
@@ -175,12 +175,12 @@ namespace Intersect.Client.Networking
 
         //Admin Action Packet Should be Here
 
-        public static void SendSellItem(int slot, int amount)
+        public static void SendSellItem(int slot, long amount)
         {
             Network.SendPacket(new SellItemPacket(slot, amount));
         }
 
-        public static void SendBuyItem(int slot, int amount)
+        public static void SendBuyItem(int slot, long amount)
         {
             Network.SendPacket(new BuyItemPacket(slot, amount));
         }
@@ -190,12 +190,12 @@ namespace Intersect.Client.Networking
             Network.SendPacket(new CloseShopPacket());
         }
 
-        public static void SendDepositItem(int slot, int amount)
+        public static void SendDepositItem(int slot, long amount)
         {
             Network.SendPacket(new DepositItemPacket(slot, amount));
         }
 
-        public static void SendWithdrawItem(int slot, int amount)
+        public static void SendWithdrawItem(int slot, long amount)
         {
             Network.SendPacket(new WithdrawItemPacket(slot, amount));
         }
@@ -265,12 +265,12 @@ namespace Intersect.Client.Networking
             Network.SendPacket(new TradeRequestPacket(targetId));
         }
 
-        public static void SendOfferTradeItem(int slot, int amount)
+        public static void SendOfferTradeItem(int slot, long amount)
         {
             Network.SendPacket(new OfferTradeItemPacket(slot, amount));
         }
 
-        public static void SendRevokeTradeItem(int slot, int amount)
+        public static void SendRevokeTradeItem(int slot, long amount)
         {
             Network.SendPacket(new RevokeTradeItemPacket(slot, amount));
         }
@@ -295,12 +295,12 @@ namespace Intersect.Client.Networking
             Network.SendPacket(new TradeRequestResponsePacket((Guid) ((InputBox) sender).UserData, false));
         }
 
-        public static void SendStoreBagItem(int slot, int amount)
+        public static void SendStoreBagItem(int slot, long amount)
         {
             Network.SendPacket(new StoreBagItemPacket(slot, amount));
         }
 
-        public static void SendRetrieveBagItem(int slot, int amount)
+        public static void SendRetrieveBagItem(int slot, long amount)
         {
             Network.SendPacket(new RetrieveBagItemPacket(slot, amount));
         }

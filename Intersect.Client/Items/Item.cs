@@ -13,13 +13,13 @@ namespace Intersect.Client.Items
 
         public Guid ItemId;
 
-        public int Quantity;
+        public long Quantity;
 
         public int[] StatBuffs = new int[(int) Stats.StatCount];
 
         public ItemBase Base => ItemBase.Get(ItemId);
 
-        public void Load(Guid id, int quantity, Guid? bagId, int[] statBuffs)
+        public void Load(Guid id, long quantity, Guid? bagId, int[] statBuffs)
         {
             ItemId = id;
             Quantity = quantity;

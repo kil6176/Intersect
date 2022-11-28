@@ -127,7 +127,7 @@ namespace Intersect.GameObjects
 
             public Guid ItemId;
 
-            public int Quantity;
+            public long Quantity;
 
         }
 

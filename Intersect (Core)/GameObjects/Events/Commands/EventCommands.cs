@@ -434,7 +434,7 @@ namespace Intersect.GameObjects.Events.Commands
         /// </summary>
         public ItemHandling ItemHandling { get; set; } = ItemHandling.Normal;
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         public Guid[] BranchIds { get; set; } =
             new Guid[2]; //Branch[0] is the event commands to execute when given/taken successfully, Branch[1] is for when they're not.

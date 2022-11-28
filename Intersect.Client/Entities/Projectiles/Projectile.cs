@@ -31,7 +31,7 @@ namespace Intersect.Client.Entities.Projectiles
 
         private long mSpawnTime;
 
-        private int mTotalSpawns;
+        private long mTotalSpawns;
 
         public Guid ProjectileId;
 
@@ -133,7 +133,7 @@ namespace Intersect.Client.Entities.Projectiles
             var end = 1;
             for (var i = 0; i < mMyBase.Animations.Count; i++)
             {
-                end = mMyBase.Animations[i].SpawnRange;
+                end = (int)mMyBase.Animations[i].SpawnRange;
                 if (mQuantity >= start && mQuantity < end)
                 {
                     return i;

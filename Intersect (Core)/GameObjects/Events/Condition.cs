@@ -76,7 +76,7 @@ namespace Intersect.GameObjects.Events
 
         public Guid ItemId { get; set; }
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
     }
 
@@ -222,7 +222,7 @@ namespace Intersect.GameObjects.Events
         /// <summary>
         /// Defines the amount of inventory slots that need to be free to clear this condition.
         /// </summary>
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
     }
 
     public class VariableCompaison

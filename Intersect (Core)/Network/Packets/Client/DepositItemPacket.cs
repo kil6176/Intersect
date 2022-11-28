@@ -4,7 +4,7 @@
     public class DepositItemPacket : SlotQuantityPacket
     {
 
-        public DepositItemPacket(int slot, int quantity) : base(slot, quantity)
+        public DepositItemPacket(int slot, long quantity) : base(slot, quantity)
         {
         }
 

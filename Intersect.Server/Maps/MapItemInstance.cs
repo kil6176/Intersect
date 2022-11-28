@@ -28,11 +28,11 @@ namespace Intersect.Server.Maps
 
         public int Y = 0;
 
-        public MapItem(Guid itemId, int quantity) : base(itemId, quantity, null, null)
+        public MapItem(Guid itemId, long quantity) : base(itemId, quantity, null, null)
         {
         }
 
-        public MapItem(Guid itemId, int quantity, Guid? bagId, Bag bag) : base(itemId, quantity, bagId, bag)
+        public MapItem(Guid itemId, long quantity, Guid? bagId, Bag bag) : base(itemId, quantity, bagId, bag)
         {
         }
 

@@ -89,11 +89,7 @@ namespace Intersect.Editor.Forms.Editors.Events.Event_Commands
             this.nudExperience.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.nudExperience.ForeColor = System.Drawing.Color.Gainsboro;
             this.nudExperience.Location = new System.Drawing.Point(112, 20);
-            this.nudExperience.Maximum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            0});
+            this.nudExperience.Maximum = new decimal(1000000000000000);
             this.nudExperience.Name = "nudExperience";
             this.nudExperience.Size = new System.Drawing.Size(141, 20);
             this.nudExperience.TabIndex = 22;

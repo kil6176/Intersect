@@ -8,7 +8,7 @@ namespace Intersect.Server.Web.RestApi.Payloads
 
         public Guid ItemId { get; set; }
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         public bool BankOverflow { get; set; }
 

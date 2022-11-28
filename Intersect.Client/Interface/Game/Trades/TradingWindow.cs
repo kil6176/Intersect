@@ -92,7 +92,7 @@ namespace Intersect.Client.Interface.Game.Trades
 
         public void Update()
         {
-            var g = 0;
+            long g = 0;
 
             if (mTradeWindow.IsHidden == true)
             {

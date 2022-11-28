@@ -4,7 +4,7 @@
     public class StoreBagItemPacket : SlotQuantityPacket
     {
 
-        public StoreBagItemPacket(int slot, int quantity) : base(slot, quantity)
+        public StoreBagItemPacket(int slot, long quantity) : base(slot, quantity)
         {
         }
 

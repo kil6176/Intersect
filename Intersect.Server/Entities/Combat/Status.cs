@@ -119,11 +119,11 @@ namespace Intersect.Server.Entities.Combat
             PacketSender.SendEntityVitals(mEntity);
         }
 
-        public void DamageShield(Vitals vital, ref int amount)
+        public void DamageShield(Vitals vital, ref long amount)
         {
             if (Type == StatusTypes.Shield)
             {
-                shield[(int) vital] -= amount;
+                shield[(int) vital] -= (int)amount;
                 if (shield[(int) vital] <= 0)
                 {
                     amount = -shield[(int) vital]; //Return piercing damage.
